@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tasks</title>
+    <link
+    href="https://cdn.jsdelivr.net/npm/remixicon@4.3.0/fonts/remixicon.css"
+    rel="stylesheet"
+    />
+</head>
+<body>
+    <h1>Tasks</h1>
+    <table>
+        <tr>
+            <th>Task</th>
+            <th>Description</th>
+        </tr>
+        
+        <% tasks.forEach((task,index) =>{ %>
+            <tr>
+            <td><%= task.title %></td>
+            <td><%= task.description %></td>
+            <td><i class="ri-more-2-line" onclick="showOptions('<%=index%>')"></i></td>
+            <td>
+                <div id="options<%=index%>" style="display: none;">
+                    <a href="" onclick="showPopup()">edit</a>
+                    <a href="">delete</a>
+                    <a href="">status</a>
+                </div>
+            </td>
+            </tr>
+            
+        <% }) %>
+    </table>
+    <div id="popup" class="popup">
+        <div class="popup-content">
+            <span class="close" onclick="closePopup()">&times;</span>
+            <h2>Pop-Up Content</h2>
+            <p>This is the content of the pop-up.</p>
+            <a href="">Some Link</a><br>
+            <a href="">Another Link</a><br>
+        </div>
+    </div>
+    <script>
+        function showOptions(index){
+            const menu = document.getElementById('options'+index);
+            // let menustyle = menu.style.display;
+            if(menu.style.display === 'none'){
+                menu.style.display = 'block';
+            }else{
+                menu.style.display = 'none';
+            }
+        }
+    </script>
+</body>
+</html>
