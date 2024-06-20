@@ -129,6 +129,7 @@ To get started with the To-Do List project, follow these steps:
 - **Node.js**: JavaScript runtime environment
 - **Express**: Web framework for Node.js
 - **Mongoose**: ODM for MongoDB
+- **REST API**: API framework for express
 
 ## Contributing
 Contributions are welcome! Please fork the repository and create a pull request with your changes.
