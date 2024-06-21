@@ -10,7 +10,7 @@ async function createTask(req,res){
         description:desc
     }
     await Task.create(tasks);
-    return res.json({msg:"task created"});
+    return res.render('home');
 }
 
 async function getAllTasks(req,res){
@@ -23,13 +23,16 @@ async function updateTask(req,res){
     const update = req.body;
     const id = req.params.id;
     await Task.findByIdAndUpdate(id,{$set: update},{new:true});
-    return res.json({msg:'updated'});
+    const tasks = await Task.find({});
+    return res.render('tasks',{tasks:tasks});
 }
 
 async function deleteTask(req,res){
     const id = req.params.id;
     await Task.findByIdAndDelete(id);
-    return res.json({msg:'deleted'});
+    const tasks = await Task.find({});
+    return res.render('tasks',{tasks:tasks});
+    // return res.send('deleted');
 }
 
 module.exports = {createTask,getAllTasks,updateTask,deleteTask}

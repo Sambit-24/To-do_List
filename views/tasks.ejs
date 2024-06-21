@@ -8,6 +8,44 @@
     href="https://cdn.jsdelivr.net/npm/remixicon@4.3.0/fonts/remixicon.css"
     rel="stylesheet"
     />
+    <style>
+    .popup {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.4);
+}
+
+.popup-content {
+    background-color: #fff;
+    margin: 15% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
+    max-width: 500px;
+    border-radius: 10px;
+}
+
+.close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+    </style>
 </head>
 <body>
     <h1>Tasks</h1>
@@ -24,24 +62,28 @@
             <td><i class="ri-more-2-line" onclick="showOptions('<%=index%>')"></i></td>
             <td>
                 <div id="options<%=index%>" style="display: none;">
-                    <a href="" onclick="showPopup()">edit</a>
-                    <a href="">delete</a>
+                    <a href="" onclick="showPopup(event,'<%=index%>')">edit</a>
+                    <form action="/tasks/<%=task._id%>/delete" method="post">
+                     <button type="submit">delete</button>
+                    </form>
                     <a href="">status</a>
                 </div>
             </td>
             </tr>
+        </table>
+        <div id="popup<%=index%>" class="popup">
+            <div class="popup-content">
+                <span class="close" onclick="closePopup('<%=index%>')">&times;</span>
+                <form action="/tasks/<%=task._id%>/edit" method="post">
+                    <input type="text" name="title" placeholder="Enter Title">
+                    <input type="text" name="description" placeholder="description">
+                    <button type="submit">edit</button>
+                </form>
+            </div>
+        </div>
             
         <% }) %>
-    </table>
-    <div id="popup" class="popup">
-        <div class="popup-content">
-            <span class="close" onclick="closePopup()">&times;</span>
-            <h2>Pop-Up Content</h2>
-            <p>This is the content of the pop-up.</p>
-            <a href="">Some Link</a><br>
-            <a href="">Another Link</a><br>
-        </div>
-    </div>
+    
     <script>
         function showOptions(index){
             const menu = document.getElementById('options'+index);
@@ -52,6 +94,15 @@
                 menu.style.display = 'none';
             }
         }
+        function showPopup(event,index) {
+           event.preventDefault();
+           document.getElementById('popup'+index).style.display = 'block';
+        }
+
+       function closePopup(index) {
+         document.getElementById('popup'+index).style.display = 'none';
+        }
+
     </script>
 </body>
 </html>
